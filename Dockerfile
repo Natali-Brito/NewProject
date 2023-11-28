@@ -1,8 +1,8 @@
 ## Consulte a documentação do Docker em https://docs.cronapp.io para informações sobre o conteúdo desse arquivo.
 
-FROM alpine:3.12.0 as maven_builder
-RUN apk add --no-cache --update-cache maven openjdk11 npm git bash
-WORKDIR /app
+FROM ubuntu:18.04 as maven_builder
+RUN apt update && apt install -y maven openjdk-11-jdk npm git bash
+WORKDIR /app 
 ADD pom.xml /app/pom.xml
 RUN git config --global url."https://".insteadOf git://
 ARG TIER

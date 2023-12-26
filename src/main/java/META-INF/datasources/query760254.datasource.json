@@ -10,9 +10,11 @@
     "blocklyLanguage": "java",
     "blocklyParams": [],
     "blocklyJson": {
+      "library": false,
       "namespace": "blockly.Bloco",
       "sourcePath": "src/main/java/blockly/Bloco.blockly",
       "language": "java",
+      "class": "blockly.Bloco",
       "methods": [
         {
           "name": "Executar",

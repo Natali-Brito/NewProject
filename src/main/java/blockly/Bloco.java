@@ -3,8 +3,10 @@ package blockly;
 import cronapi.*;
 import cronapi.rest.security.CronappSecurity;
 import java.util.concurrent.Callable;
+import org.springframework.web.bind.annotation.*;
 
 
+@RestController
 @CronapiMetaData(type = "blockly")
 @CronappSecurity
 public class Bloco {
@@ -14,16 +16,17 @@ public static final int TIMEOUT = 300;
 /**
  *
  * @author Natali Amaral
- * @since 05/12/2023, 11:56:22
+ * @since 13/12/2023, 17:05:02
  *
  */
+@RequestMapping(path = "/api/cronapi/rest/Bloco:Executar", method = RequestMethod.GET, consumes = "*/*")
 public static Var Executar() throws Exception {
  return new Callable<Var>() {
 
+   private Var x = Var.VAR_NULL;
    private Var lista = Var.VAR_NULL;
    private Var item = Var.VAR_NULL;
    private Var i = Var.VAR_NULL;
-   private Var x = Var.VAR_NULL;
    private Var i_start = Var.VAR_NULL;
    private Var i_end = Var.VAR_NULL;
    private Var i_inc = Var.VAR_NULL;
@@ -60,9 +63,44 @@ public static Var Executar() throws Exception {
         cronapi.math.Operations.subtract(i,
         Var.valueOf(1)).getObjectAsString() +
         Var.valueOf("].pedido.cliente").getObjectAsString()));
+        System.out.println(x.getObjectAsString());
         cronapi.list.Operations.addLast(lista,x);
     } // end for
     return lista;
+   }
+ }.call();
+}
+
+/**
+ *
+ * @param x
+ *
+ * @author Natali Amaral
+ * @since 13/12/2023, 17:05:02
+ *
+ */
+public static void formatar(@ParamMetaData(description = "x", id = "230a62cb") Var x) throws Exception {
+  new Callable<Var>() {
+
+   public Var call() throws Exception {
+    if (
+    Var.valueOf(x.equals(
+    Var.valueOf("CPF"))).getObjectAsBoolean()) {
+        cronapi.util.Operations.callClientFunction(Var.valueOf("cronapi.screen.changeAttrValue"),
+        Var.valueOf("input6533"),
+        Var.valueOf("mask"),
+        Var.valueOf("999.999.999-99;0"));
+        cronapi.util.Operations.callClientFunction(Var.valueOf("cronapi.screen.recompileComponent"),
+        Var.valueOf("input6533"));
+    } else {
+        cronapi.util.Operations.callClientFunction(Var.valueOf("cronapi.screen.changeAttrValue"),
+        Var.valueOf("input6533"),
+        Var.valueOf("mask"),
+        Var.valueOf("99.999.999/9999-99;0"));
+        cronapi.util.Operations.callClientFunction(Var.valueOf("cronapi.screen.recompileComponent"),
+        Var.valueOf("input6533"));
+    }
+   return Var.VAR_NULL;
    }
  }.call();
 }

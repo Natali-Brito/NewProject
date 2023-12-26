@@ -10,10 +10,10 @@ window.blockly.js.blockly.Logico = window.blockly.js.blockly.Logico || {};
  *
  *
  * @author Natali Amaral
- * @since 12/4/2023, 12:18:16 PM
+ * @since 11/12/2023, 17:12:24
  *
  */
 window.blockly.js.blockly.Logico.ExecuteArgs = [];
 window.blockly.js.blockly.Logico.Execute = async function() {
-
+ var item;
 }
